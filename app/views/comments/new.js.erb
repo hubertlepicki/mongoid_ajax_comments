@@ -2,3 +2,10 @@ $("#new_comment").remove();
 $("#<%= params[:commentable_type] %>_<%= params[:commentable_id] %>").append(
 '<%= escape_javascript(render partial: "form") %>'
 );
+
+$("#new_comment").ajaxComplete(function(){
+  $("#attachment").MultiFile({});
+});
+
+$("#new_comment").ajaxForm({dataType: 'script'});
+

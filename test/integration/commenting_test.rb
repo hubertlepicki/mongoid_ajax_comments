@@ -11,13 +11,20 @@ class CommentingTest < ActiveSupport::IntegrationCase
     visit article_path(@article)
     click_link "Comment"
     fill_in "Content", with: "Foo bar comment"
-#   attach_file "Attachments", File.join(Rails.root, "..", "fixtures", "file.txt")
     click_button "Post Comment"
     within ".comments" do
       assert page.has_content?("Foo bar comment")
     end
     assert !page.has_css?("#new_comment")
-#    click_link "file.txt"
-#    assert page.has_content?("I am some dummy file")
+  end
+
+  test "can attach files while commenting" do
+    visit article_path(@article)
+    click_link "Comment"
+    fill_in "Content", with: "Foo bar comment"
+    attach_file "Attachments", File.join(Rails.root, "..", "fixtures", "file.txt")
+    click_button "Post Comment"
+    click_link "file.txt"
+    assert page.has_content?("I am some dummy file")
   end
 end

@@ -1,10 +1,21 @@
-<%= form_for @comment, remote: true, html: {method: :put} do |f| %>
+<%= form_for @comment, html: {method: :put} do |f| %>
   <p>
     <%= f.label :content %>
     <br/>
     <%= f.text_area :content %>
   </p>
   <p>
+    <%= label_tag "attachment", "Attachments" %>
+    <br>
+    <%= file_field_tag "comment[comment_attachments_files][]", id: "attachment" %>
+  </p>
+  <p>
     <%= f.submit "Post Comment" %>
   </p>
 <% end %>
+
+
+<script type="text/javascript">
+  $(function(){
+  });
+</script>
