@@ -12,4 +12,5 @@ Capybara.default_driver   = :selenium
 Capybara.default_selector = :css
 
 # Load support files
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+require "#{File.dirname(__FILE__)}/support/clean_case.rb"
+require "#{File.dirname(__FILE__)}/support/integration_case.rb"
