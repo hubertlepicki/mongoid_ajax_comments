@@ -24,7 +24,6 @@ class CommentingTest < ActiveSupport::IntegrationCase
     fill_in "Content", with: "Foo bar comment"
     attach_file "Attachments", File.join(Rails.root, "..", "fixtures", "file.txt")
     click_button "Post Comment"
-    click_link "file.txt"
-    assert page.has_content?("I am some dummy file")
+    assert page.has_link?("file.txt")
   end
 end

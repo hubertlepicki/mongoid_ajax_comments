@@ -2,4 +2,7 @@
   <div>
     <%= comment.content %>
   </div>
+  <% comment.comment_attachments.each do |attachment| %>
+    <%= link_to attachment.file.name, attachment.file.url %>
+  <% end %>
 </div>

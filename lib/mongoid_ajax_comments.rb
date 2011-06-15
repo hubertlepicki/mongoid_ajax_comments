@@ -1,4 +1,11 @@
 module MongoidAjaxComments
+  module AttachableModel
+    def self.included(base)
+      base.send :field, :file_uid
+      base.send :validates_presence_of, :file
+    end
+  end
+
   class Engine < Rails::Engine
     initializer "static assets" do |app|
       app.middleware.use ::ActionDispatch::Static, "#{root}/public"
