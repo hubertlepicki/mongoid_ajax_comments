@@ -1,0 +1,2 @@
+module MongoidAjaxComments
+end
