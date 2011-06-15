@@ -5,5 +5,5 @@ class Comment
   referenced_in :commentable, polymorphic: true
   referenced_in :author, class_name: "User"
   
-  validates_presence_of :author, :content
+  validates_presence_of :author, :content, :commentable
 end

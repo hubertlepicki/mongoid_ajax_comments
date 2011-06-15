@@ -1,0 +1,7 @@
+<h1><%= @article.title %></h1>
+<p><%= @article.content %></p>
+
+<div class="comments" id="<%= @article.class.to_s.underscore %>_<%= @article.id %>" 
+     data-commentable-id="<%= @article.id %>"
+     data-commentable-type="<%= @article.class.to_s.underscore %>">
+</div>

@@ -1,0 +1,5 @@
+<%= link_to "Comment", new_comment_path(commentable_type: params[:commentable_type],
+                                        commentable_id: params[:commentable_id]),
+                       remote: true %>
+
+<%= render @comments %>

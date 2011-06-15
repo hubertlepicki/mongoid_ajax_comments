@@ -1,0 +1,5 @@
+$("#new_comment").remove();
+
+$("#<%= params[:commentable_type] %>_<%= params[:commentable_id] %>").append(
+  '<%= escape_javascript(render @comment) %>'
+);
