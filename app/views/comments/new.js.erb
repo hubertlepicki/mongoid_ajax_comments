@@ -8,4 +8,4 @@ $("#new_comment").ajaxComplete(function(){
 });
 
 $("#new_comment").ajaxForm({dataType: 'script'});
-
+$('html,body').animate({ scrollTop: $("#new_comment").offset().top }, { duration: 'slow', easing: 'swing'});
