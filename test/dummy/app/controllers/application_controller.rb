@@ -5,7 +5,8 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    User.first
+    session[:user_email] = params[:user_email] if params[:user_email]
+    User.where(email: session[:user_email]).first
   end
 
 end

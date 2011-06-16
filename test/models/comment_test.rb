@@ -10,7 +10,7 @@ class CommentTest < ActiveSupport::CleanCase
   test "comment should require content" do
     assert !Comment.create.errors[:content].empty?
   end
-  
+
   test "comment should require author" do
     assert !Comment.create.errors[:author].empty?
   end
@@ -57,5 +57,11 @@ class CommentTest < ActiveSupport::CleanCase
    assert_equal 0, CommentAttachment.count
   end
 
+  test "edit guard by default allows edition by author only" do
+    comment = Comment.create(content: "Foo", author: @user, commentable: @article)
+    assert comment.can_be_edited_by?(@user)
+    other_user = User.create! email: "other@user.com"
+    assert !comment.can_be_edited_by?(other_user)
+  end
 
 end

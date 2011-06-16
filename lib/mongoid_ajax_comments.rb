@@ -25,6 +25,13 @@ module MongoidAjaxComments
       end
 
       dapp.define_macro_on_include(AttachableModel, :image_accessor)
+
+      app.middleware.insert_after 'Rack::Lock', 'Dragonfly::Middleware', :comment_attachments
+      app.middleware.insert_before 'Dragonfly::Middleware', 'Rack::Cache', {
+       :verbose     => false,
+       :metastore   => "file:#{Rails.root}/tmp/dragonfly/cache_comment_attachments/meta",
+       :entitystore => "file:#{Rails.root}/tmp/dragonfly/cache_comment_attachments/body"
+       }
     end
   end
 end

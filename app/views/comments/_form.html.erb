@@ -1,4 +1,4 @@
-<%= form_for @comment, html: {method: :put} do |f| %>
+<%= form_for @comment, url: comment_post_url(@comment), html: {method: comment_post_method(@comment)} do |f| %>
   <p>
     <%= f.label :content %>
     <br/>
@@ -7,6 +7,18 @@
   <p>
     <%= label_tag "attachment", "Attachments" %>
     <br>
+    <% unless @comment.comment_attachments.empty? %>
+      <% @comment.comment_attachments.select {|a| !a.new_record?}.each do |attachment| %>
+        <div>
+          <%= link_to attachment.file.name, attachment.file.url %>
+          <%= check_box_tag "comment[delete_attachment_ids][]", attachment.id,
+                          f.object.delete_attachment_ids.include?(attachment.id.to_s),
+                          id: "delete_#{attachment.id}" %>
+
+          <%= label_tag "delete_#{attachment.id}", "remove?" %>
+        </div>
+      <% end %>
+    <% end %>
     <%= file_field_tag "comment[attachments_files][]", id: "attachment" %>
   </p>
   <p>
@@ -14,8 +26,3 @@
   </p>
 <% end %>
 
-
-<script type="text/javascript">
-  $(function(){
-  });
-</script>

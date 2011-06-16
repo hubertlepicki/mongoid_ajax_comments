@@ -1,0 +1,8 @@
+$("#comment_<%= @comment.id %>").html('<%= escape_javascript(render partial: "form") %>');
+
+$("#comment_<%= @comment.id %> .edit_comment").ajaxComplete(function(){
+  $("#attachment").MultiFile({});
+});
+
+$("#comment_<%= @comment.id %> .edit_comment").ajaxForm({dataType: 'script'});
+
