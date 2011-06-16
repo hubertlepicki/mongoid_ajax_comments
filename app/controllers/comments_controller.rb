@@ -21,15 +21,22 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = comments_for_commentable.find(params[:id])
+    check_permissions
   end
 
   def update
     @comment = comments_for_commentable.find(params[:id])
-
+    check_permissions
     unless @comment.update_attributes(params[:comment].merge(commentable: @commentable,
                                                        author: current_user))
       render :edit
     end
+  end
+
+  def destroy
+    @comment = comments_for_commentable.find(params[:id])
+    check_permissions
+    @comment.destroy
   end
 
   def show
@@ -37,6 +44,10 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def check_permissions
+    raise "Not allowed" unless @comment.can_be_edited_by?(current_user)
+  end
 
   def find_commentable
     @commentable = params[:commentable_type].classify.constantize.find(params[:commentable_id])

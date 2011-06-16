@@ -5,4 +5,5 @@ Rails.application.routes.draw do |map|
   get ":commentable_type/:commentable_id/comments/:id", to: "comments#show", as: "comment"
   post ":commentable_type/:commentable_id/comments/:id", to: "comments#update"
   put ":commentable_type/:commentable_id/comments", to: "comments#create"
+  delete ":commentable_type/:commentable_id/comments/:id", to: "comments#destroy"
 end

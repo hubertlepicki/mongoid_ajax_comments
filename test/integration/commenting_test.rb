@@ -52,4 +52,14 @@ class CommentingTest < ActiveSupport::IntegrationCase
     click_button "Post Comment"
     !assert page.has_link?("file.txt")
   end
+
+  test "remove own comments" do
+    comment = Comment.create! content: "Foo bar",
+                              commentable: @article,
+                              author: @user
+    visit article_path(@article, user_email: @user.email)
+
+    click_link "Remove"
+    assert !page.has_css?("#comment_#{comment.id}")
+  end
 end
