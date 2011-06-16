@@ -69,4 +69,19 @@ class CommentTest < ActiveSupport::CleanCase
     assert !Comment.create.errors[:commentable_type].empty?
     MongoidAjaxComments.commentables = ["Article"]
   end
+
+  test "should allow custom guards" do
+    MongoidAjaxComments.guards["Article"] = Proc.new do |comment, user|
+      false
+    end
+    assert !Comment.new(commentable: @article).can_be_edited_by?(@user)
+
+    MongoidAjaxComments.guards["Article"] = Proc.new do |comment, user|
+      true
+    end
+    assert Comment.new(commentable: @article).can_be_edited_by?(@user)
+
+    MongoidAjaxComments.guards["Article"] = nil
+    assert Comment.new(commentable: @article).can_be_edited_by?(@user)
+  end
 end

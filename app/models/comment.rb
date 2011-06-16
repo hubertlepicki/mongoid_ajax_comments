@@ -20,7 +20,11 @@ class Comment
   end
 
   def can_be_edited_by?(some_user)
-    author == some_user
+    if MongoidAjaxComments.guards[commentable_type].respond_to?(:call)
+      MongoidAjaxComments.guards[commentable_type].call(self, some_user)
+    else
+      new_record? || (author == some_user)
+    end
   end
 
   private
