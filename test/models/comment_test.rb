@@ -64,4 +64,9 @@ class CommentTest < ActiveSupport::CleanCase
     assert !comment.can_be_edited_by?(other_user)
   end
 
+  test "should validate allowed commentable type" do
+    MongoidAjaxComments.commentables = []
+    assert !Comment.create.errors[:commentable_type].empty?
+    MongoidAjaxComments.commentables = ["Article"]
+  end
 end

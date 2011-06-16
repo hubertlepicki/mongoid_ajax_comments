@@ -7,6 +7,7 @@ class Comment
   references_many :comment_attachments, dependent: :destroy
 
   validates_presence_of :author, :content, :commentable
+  validates :commentable_type, inclusion: MongoidAjaxComments.commentables
   attr_writer :delete_attachment_ids
   after_save :save_attachments, :delete_unwanted_attachments
 

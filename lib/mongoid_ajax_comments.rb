@@ -1,4 +1,12 @@
 module MongoidAjaxComments
+  def self.commentables
+    @commentables
+  end
+
+  def self.commentables=(new_commentables)
+    @commentables = new_commentables
+  end
+
   module AttachableModel
     def self.included(base)
       base.send :field, :file_uid
