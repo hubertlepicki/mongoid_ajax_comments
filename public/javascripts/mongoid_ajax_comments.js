@@ -9,4 +9,9 @@ $(function() {
             $(container).html(response);
           });
   });
+
+  $(".cancel-new-comment").live("click", function(event) {
+    event.preventDefault();
+    $(this).parents("#new_comment").remove();
+  });
 });

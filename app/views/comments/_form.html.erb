@@ -23,6 +23,12 @@
   </p>
   <p>
     <%= f.submit "Post Comment" %>
+    <% if f.object.new_record? %>
+      <%= link_to "Cancel", "#", class: "cancel-new-comment" %>
+    <% else %>
+      <%= link_to "Cancel", comment_path(@comment, commentable_type: params[:commentable_type],
+                                                  commentable_id: params[:commentable_id]), remote: true %>
+    <% end %>
   </p>
 <% end %>
 
